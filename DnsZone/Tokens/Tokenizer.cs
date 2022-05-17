@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace DnsZone.Tokens {
     public class Tokenizer {
@@ -89,7 +90,7 @@ namespace DnsZone.Tokens {
         }
 
         public IEnumerable<Token> Read(FileSource source) {
-            var content = source.Content;
+            var content = Regex.Replace(source.Content, @"(?!$)(;|\s;)", " ;");
             var pos = 0;
             var lineNumber = 1;
             var lineStart = 0;
