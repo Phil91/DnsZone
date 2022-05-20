@@ -120,5 +120,45 @@ namespace DnsZone.Formatter {
             return record;
         }
 
+        public ResourceRecord Visit(SpfResourceRecord record, DnsZoneFormatterContext context) {
+            context.WriteString(record.Content);
+            return record;
+        }
+
+        public ResourceRecord Visit(DnskeyResourceRecord record, DnsZoneFormatterContext context) {
+            context.WritePreference(record.Flags);
+            context.WritePreference(record.Protokoll);
+            context.WritePreference(record.HashType);
+            context.WriteValWithTab(record.Hash);
+            return record;
+        }
+        
+        public ResourceRecord Visit(IsdnResourceRecord record, DnsZoneFormatterContext context) {
+            context.WritePreference(record.Adress);
+            context.WritePreference(record.Subadress);
+            return record;
+        }
+        
+        public ResourceRecord Visit(NsecResourceRecord record, DnsZoneFormatterContext context) {
+            context.WriteValWithTab(record.NextDomainName);
+            context.WriteValWithTab(record.TypeList);
+            return record;
+        }
+        
+        public ResourceRecord Visit(Nsec3ResourceRecord record, DnsZoneFormatterContext context) {
+            context.WritePreference(record.Flags);
+            context.WritePreference(record.Iteration);
+            context.WriteValWithTab(record.Salt);
+            context.WriteValWithTab(record.Hash);
+            context.WriteValWithTab(record.TypesList);
+            return record;
+        }
+        
+        public ResourceRecord Visit(Nsec3ParamResourceRecord record, DnsZoneFormatterContext context) {
+            context.WritePreference(record.Flags);
+            context.WritePreference(record.Iteration);
+            context.WriteValWithTab(record.Salt);
+            return record;
+        }
     }
 }

@@ -24,6 +24,12 @@
         DNAME,
         DS,
         LUA,
-        NAPTR
+        NAPTR,
+        SPF,
+        DNSKEY,
+        ISDN,
+        NSEC,
+        NSEC3,
+        NSEC3PARAM,
     }
 }

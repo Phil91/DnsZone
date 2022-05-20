@@ -21,6 +21,7 @@ namespace DnsZone {
                 case "WKS": return ResourceRecordType.WKS;
                 case "PTR": return ResourceRecordType.PTR;
                 case "SRV": return ResourceRecordType.SRV;
+                case "SPF": return ResourceRecordType.SPF;
                 case "SSHFP": return ResourceRecordType.SSHFP;
                 case "HINFO": return ResourceRecordType.HINFO;
                 case "MX": return ResourceRecordType.MX;
@@ -32,6 +33,10 @@ namespace DnsZone {
                 case "DS": return ResourceRecordType.DS;
                 case "LUA": return ResourceRecordType.LUA;
                 case "NAPTR": return ResourceRecordType.NAPTR;
+                case "DNSKEY": return ResourceRecordType.DNSKEY;
+                case "NSEC": return ResourceRecordType.NSEC;
+                case "NSEC3": return ResourceRecordType.NSEC3;
+                case "NSEC3PARAM": return ResourceRecordType.NSEC3PARAM;
                 default:
                     throw new NotSupportedException($"unsupported resource record type {val}");
             }
@@ -53,6 +58,7 @@ namespace DnsZone {
                 case ResourceRecordType.WKS: return "WKS";
                 case ResourceRecordType.PTR: return "PTR";
                 case ResourceRecordType.SRV: return "SRV";
+                case ResourceRecordType.SPF: return "SPF";
                 case ResourceRecordType.HINFO: return "HINFO";
                 case ResourceRecordType.MX: return "MX";
                 case ResourceRecordType.TXT: return "TXT";
@@ -64,6 +70,10 @@ namespace DnsZone {
                 case ResourceRecordType.DS: return "DS";
                 case ResourceRecordType.LUA: return "LUA";
                 case ResourceRecordType.NAPTR: return "NAPTR";
+                case ResourceRecordType.DNSKEY: return "DNSKEY";
+                case ResourceRecordType.NSEC: return "NSEC";
+                case ResourceRecordType.NSEC3: return "NSEC3";
+                case ResourceRecordType.NSEC3PARAM: return "NSEC3PARAM";
                 default:
                     throw new NotSupportedException($"unsupported resource record type {val}");
             }
@@ -90,6 +100,11 @@ namespace DnsZone {
                 case ResourceRecordType.DS: return new DsResourceRecord();
                 case ResourceRecordType.LUA: return new LuaResourceRecord();
                 case ResourceRecordType.NAPTR: return new NaptrResourceRecord();
+                case ResourceRecordType.SPF: return new SpfResourceRecord();
+                case ResourceRecordType.DNSKEY: return new DnskeyResourceRecord();
+                case ResourceRecordType.NSEC: return new NsecResourceRecord();
+                case ResourceRecordType.NSEC3: return new Nsec3ResourceRecord();
+                case ResourceRecordType.NSEC3PARAM: return new Nsec3ParamResourceRecord();
                 default:
                     throw new NotSupportedException($"unsupported resource record type {type}");
             }

@@ -36,5 +36,17 @@
         TResult Visit(TlsaResourceRecord record, TArg arg);
 
         TResult Visit(SshfpResourceRecord record, TArg arg);
+        
+        TResult Visit(SpfResourceRecord record, TArg arg);
+        
+        TResult Visit(DnskeyResourceRecord record, TArg arg);
+        
+        TResult Visit(IsdnResourceRecord record, TArg arg);
+        
+        TResult Visit(NsecResourceRecord record, TArg arg);
+
+        TResult Visit(Nsec3ResourceRecord record, TArg arg);
+
+        TResult Visit(Nsec3ParamResourceRecord record, TArg arg);
     }
 }

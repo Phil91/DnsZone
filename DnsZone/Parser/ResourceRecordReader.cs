@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 using DnsZone.Records;
 using DnsZone.Tokens;
@@ -147,6 +146,50 @@ namespace DnsZone.Parser {
             record.FingerprintType = context.ReadPreference();
             record.Fingerprint = context.ReadString();
 
+            return record;
+        }
+        
+        public ResourceRecord Visit(SpfResourceRecord record, DnsZoneParseContext context) {
+            record.Content = context.ReadString();
+
+            return record;
+        }
+        
+        public ResourceRecord Visit(DnskeyResourceRecord record, DnsZoneParseContext context) {
+            record.Flags = context.ReadPreference();
+            record.Protokoll = context.ReadPreference();
+            record.HashType = context.ReadPreference();
+            record.Hash = context.ReadSerialNumber();
+            return record;
+        }
+        
+        public ResourceRecord Visit(IsdnResourceRecord record, DnsZoneParseContext context) {
+            record.Adress = context.ReadPreference();
+            record.Subadress = context.ReadPreference();
+            return record;
+        }
+        
+        public ResourceRecord Visit(NsecResourceRecord record, DnsZoneParseContext context) {
+            record.NextDomainName = context.ReadString();
+            record.TypeList = context.ReadString();
+            return record;
+        }
+        
+        public ResourceRecord Visit(Nsec3ResourceRecord record, DnsZoneParseContext context) {
+            record.Algorithm = context.ReadPreference();
+            record.Flags = context.ReadPreference();
+            record.Iteration = context.ReadPreference();
+            record.Salt = context.ReadString();
+            record.Hash = context.ReadString();
+            record.TypesList = context.ReadString();
+            return record;
+        }
+        
+        public ResourceRecord Visit(Nsec3ParamResourceRecord record, DnsZoneParseContext context) {
+            record.Algorithm = context.ReadPreference();
+            record.Flags = context.ReadPreference();
+            record.Iteration = context.ReadPreference();
+            record.Salt = context.ReadString();
             return record;
         }
     }
