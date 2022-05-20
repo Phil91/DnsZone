@@ -25,7 +25,7 @@ namespace DnsZone.Tests {
         [TestCase("1w2d5h3m10s", "9.5:3:10")]
         public void FormatTimeSpanTests(string expected, string span) {
             var val = TimeSpan.Parse(span);
-            var actual = DnsZoneUtils.FormatTimeSpan(val);
+            var actual = DnsZoneUtils.FormatTimeSpan(val, false);
             Assert.AreEqual(expected, actual);
         }
     }

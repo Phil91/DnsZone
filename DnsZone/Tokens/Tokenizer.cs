@@ -12,10 +12,8 @@ namespace DnsZone.Tokens {
         }
 
         private static void SkipOne(ref string content, ref int chIndex, char match) {
-            if (chIndex < content.Length) {
-                if (content[chIndex] == match) {
-                    chIndex++;
-                }
+            if (chIndex < content.Length && content[chIndex] == match) {
+                chIndex++;
             }
         }
 

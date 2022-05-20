@@ -1,5 +1,5 @@
 ﻿namespace DnsZone.Records {
-    public interface IResourceRecordVisitor<TArg, TResult> {
+    public interface IResourceRecordVisitor<in TArg, out TResult> {
 
         TResult Visit(AResourceRecord record, TArg arg);
 
@@ -31,10 +31,10 @@
 
         TResult Visit(TxtResourceRecord record, TArg arg);
 
-        TResult Visit(CAAResourceRecord record, TArg arg);
+        TResult Visit(CaaResourceRecord record, TArg arg);
 
-        TResult Visit(TLSAResourceRecord record, TArg arg);
+        TResult Visit(TlsaResourceRecord record, TArg arg);
 
-        TResult Visit(SSHFPResourceRecord record, TArg arg);
+        TResult Visit(SshfpResourceRecord record, TArg arg);
     }
 }

@@ -14,25 +14,25 @@ namespace DnsZone.Formatter {
         }
 
         public ResourceRecord Visit(AliasResourceRecord record, DnsZoneFormatterContext context) {
-            context.WriteClass(record.Content);
+            context.WriteValWithTab(record.Content);
             return record;
         }
 
         public ResourceRecord Visit(CNameResourceRecord record, DnsZoneFormatterContext context) {
-            context.WriteDomainName(record.CanonicalName);
+            context.WriteValWithTab(record.CanonicalName);
             return record;
         }
 
         public ResourceRecord Visit(DnameResourceRecord record, DnsZoneFormatterContext context) {
-            context.WriteTag(record.Content);
+            context.WriteValWithTab(record.Content);
             return record;
         }
 
         public ResourceRecord Visit(DsResourceRecord record, DnsZoneFormatterContext context) {
-            context.WriteTag(record.KeyTag);
+            context.WriteValWithTab(record.KeyTag);
             context.WritePreference(record.Algorithm);
             context.WritePreference(record.HashType);
-            context.WriteTag(record.Hash);
+            context.WriteValWithTab(record.Hash);
             return record;
         }
 
@@ -43,7 +43,7 @@ namespace DnsZone.Formatter {
         }
 
         public ResourceRecord Visit(LuaResourceRecord record, DnsZoneFormatterContext context) {
-            context.WriteTag(record.TargetType);
+            context.WriteValWithTab(record.TargetType);
             context.WriteString(record.Script);
             return record;
         }
@@ -60,29 +60,29 @@ namespace DnsZone.Formatter {
             context.WriteString(record.Flags);
             context.WriteString(record.Services);
             context.WriteString(record.Regexp);
-            context.WriteDomainName(record.Replacement);
+            context.WriteValWithTab(record.Replacement);
             return record;
         }
 
-        public ResourceRecord Visit(CAAResourceRecord record, DnsZoneFormatterContext context) {
+        public ResourceRecord Visit(CaaResourceRecord record, DnsZoneFormatterContext context) {
             context.WritePreference(record.Flag);
-            context.WriteTag(record.Tag);
+            context.WriteValWithTab(record.Tag);
             context.WriteString(record.Value);
             return record;
         }
 
-        public ResourceRecord Visit(TLSAResourceRecord record, DnsZoneFormatterContext context) {
+        public ResourceRecord Visit(TlsaResourceRecord record, DnsZoneFormatterContext context) {
             context.WritePreference(record.CertificateUsage);
             context.WritePreference(record.Selector);
             context.WritePreference(record.MatchingType);
-            context.WriteTag(record.CertificateAssociationData);
+            context.WriteValWithTab(record.CertificateAssociationData);
             return record;
         }
 
-        public ResourceRecord Visit(SSHFPResourceRecord record, DnsZoneFormatterContext context) {
+        public ResourceRecord Visit(SshfpResourceRecord record, DnsZoneFormatterContext context) {
             context.WritePreference(record.AlgorithmNumber);
             context.WritePreference(record.FingerprintType);
-            context.WriteTag(record.Fingerprint);
+            context.WriteValWithTab(record.Fingerprint);
             return record;
         }
 
@@ -98,8 +98,8 @@ namespace DnsZone.Formatter {
 
         public ResourceRecord Visit(SoaResourceRecord record, DnsZoneFormatterContext context) {
             context.WriteAndCompressDomainName(record.NameServer);
-            context.WriteEmail(record.ResponsibleEmail);
-            context.WriteSerialNumber(record.SerialNumber);
+            context.WriteValWithTab(record.ResponsibleEmail);
+            context.WriteValWithTab(record.SerialNumber);
             context.WriteTimeSpan(record.Refresh);
             context.WriteTimeSpan(record.Retry);
             context.WriteTimeSpan(record.Expiry);

@@ -19,9 +19,9 @@ _443._tcp.keyserver.example.com. IN TLSA 3 1 1 e677073271638e936eb3846c7aacfd3d3
             var zone = DnsZoneFile.Parse(str);
             Assert.AreEqual(1, zone.Records.Count);
 
-            Assert.IsAssignableFrom<TLSAResourceRecord>(zone.Records.First());
+            Assert.IsAssignableFrom<TlsaResourceRecord>(zone.Records.First());
 
-            var record = (TLSAResourceRecord)zone.Records.First();
+            var record = (TlsaResourceRecord)zone.Records.First();
             Assert.AreEqual("_443._tcp.keyserver.example.com", record.Name);
             Assert.AreEqual("IN", record.Class);
             Assert.AreEqual(ResourceRecordType.TLSA, record.Type);
@@ -36,7 +36,7 @@ _443._tcp.keyserver.example.com. IN TLSA 3 1 1 e677073271638e936eb3846c7aacfd3d3
         public void OutputTest() {
             var zone = new DnsZoneFile();
 
-            var record = new TLSAResourceRecord {
+            var record = new TlsaResourceRecord {
                 Name = "_443._tcp.sil.example.com",
                 Class = "IN",
                 CertificateUsage = 3,
@@ -52,7 +52,7 @@ _443._tcp.keyserver.example.com. IN TLSA 3 1 1 e677073271638e936eb3846c7aacfd3d3
 
         [Test]
         public void NameTest() {
-            var record = new TLSAResourceRecord {
+            var record = new TlsaResourceRecord {
                 Name = "_443._tcp.example.com"
             };
             Assert.AreEqual(443, record.Port);
