@@ -20,9 +20,9 @@ example.com. IN	CAA 0	iodef		""mailto: hostmaster@example.com""
             var zone = DnsZoneFile.Parse(str);
             Assert.AreEqual(2, zone.Records.Count);
 
-            Assert.IsAssignableFrom<CAAResourceRecord>(zone.Records.First());
+            Assert.IsAssignableFrom<CaaResourceRecord>(zone.Records.First());
 
-            var record = (CAAResourceRecord)zone.Records.First();
+            var record = (CaaResourceRecord)zone.Records.First();
             Assert.AreEqual("example.com", record.Name);
             Assert.AreEqual("IN", record.Class);
             Assert.AreEqual(ResourceRecordType.CAA, record.Type);
@@ -36,7 +36,7 @@ example.com. IN	CAA 0	iodef		""mailto: hostmaster@example.com""
         public void OutputTest() {
             var zone = new DnsZoneFile();
 
-            var record = new CAAResourceRecord {
+            var record = new CaaResourceRecord {
                 Name = "example.com",
                 Class = "IN",
                 Flag = 0,

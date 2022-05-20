@@ -129,20 +129,7 @@ namespace DnsZone.Parser {
         public TimeSpan GetTimeSpan(TimeSpan? explicitValue) {
             if (explicitValue.HasValue) return explicitValue.Value;
             if (DefaultTtl.HasValue) return DefaultTtl.Value;
-            throw new Exception("unknown ttl value");
-        }
-
-        public bool TryParseTtl(out TimeSpan val) {
-            val = TimeSpan.Zero;
-            var token = Tokens.Peek();
-            if (token.Type != TokenType.Literal) return false;
-
-            if (DnsZoneUtils.TryParseTimeSpan(token.StringValue, out val)) {
-                Tokens.Dequeue();
-                return true;
-            }
-
-            return false;
+            throw new NotSupportedException("unknown ttl value");
         }
 
         public bool TryParseTtl(out TimeSpan? timestamp) {
@@ -177,6 +164,15 @@ namespace DnsZone.Parser {
                         return;
                 }
             }
+        }
+        
+        private bool TryParseTtl(out TimeSpan val) {
+            val = TimeSpan.Zero;
+            var token = Tokens.Peek();
+            if (token.Type != TokenType.Literal || !DnsZoneUtils.TryParseTimeSpan(token.StringValue, out val)) return false;
+
+            Tokens.Dequeue();
+            return true;
         }
     }
 }

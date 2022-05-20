@@ -1,5 +1,5 @@
 ﻿namespace DnsZone.Records {
-    public class TLSAResourceRecord : ResourceRecord {
+    public class TlsaResourceRecord : ResourceRecord {
 
         public ushort? Port { get; set; }
         public string Protocol { get; set; }

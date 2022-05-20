@@ -5,6 +5,7 @@ using DnsZone.Records;
 
 namespace DnsZone.Formatter {
     public class DnsZoneFormatterContext {
+        private readonly bool _formatTimeInMilliseconds;
 
         private const string TAB_CHAR = "\t";
 
@@ -22,7 +23,8 @@ namespace DnsZone.Formatter {
 
         public StringBuilder Sb { get; }
 
-        public DnsZoneFormatterContext(DnsZoneFile zone, StringBuilder sb) {
+        public DnsZoneFormatterContext(DnsZoneFile zone, StringBuilder sb, bool formatTimeInMilliseconds) {
+            _formatTimeInMilliseconds = formatTimeInMilliseconds;
             Sb = sb;
             Zone = zone;
         }
@@ -32,21 +34,11 @@ namespace DnsZone.Formatter {
             Sb.Append(TAB_CHAR);
         }
 
-        public void WriteDomainName(string val) {
-            Sb.Append(val);
-            Sb.Append(TAB_CHAR);
-        }
-
         public void WriteAndCompressDomainName(string val) {
-            WriteDomainName(CompressDomainName(val));
+            WriteValWithTab(CompressDomainName(val));
         }
 
-        public void WriteEmail(string val) {
-            Sb.Append(val);
-            Sb.Append(TAB_CHAR);
-        }
-
-        public void WriteSerialNumber(string val) {
+        public void WriteValWithTab(string val) {
             Sb.Append(val);
             Sb.Append(TAB_CHAR);
         }
@@ -57,13 +49,7 @@ namespace DnsZone.Formatter {
         }
 
         public void WriteTimeSpan(TimeSpan val) {
-            Sb.Append(DnsZoneUtils.FormatTimeSpan(val));
-            Sb.Append(TAB_CHAR);
-        }
-
-        public void WriteTag(string val)
-        {
-            Sb.Append(val);
+            Sb.Append(DnsZoneUtils.FormatTimeSpan(val, _formatTimeInMilliseconds));
             Sb.Append(TAB_CHAR);
         }
 
@@ -72,11 +58,6 @@ namespace DnsZone.Formatter {
                 .Replace("\\", "\\\\")
                 .Replace("\"", "\\\"");
             Sb.Append($"\"{val}\"");
-            Sb.Append(TAB_CHAR);
-        }
-
-        public void WriteClass(string val) {
-            Sb.Append(val);
             Sb.Append(TAB_CHAR);
         }
 

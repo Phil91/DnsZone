@@ -22,9 +22,9 @@ sil.example.com. IN SSHFP 2 1 450c7d19d5da9a3a5b7c18992d1fbde15d8dad34";
             var zone = DnsZoneFile.Parse(str);
             Assert.AreEqual(1, zone.Records.Count);
 
-            Assert.IsAssignableFrom<SSHFPResourceRecord>(zone.Records.First());
+            Assert.IsAssignableFrom<SshfpResourceRecord>(zone.Records.First());
 
-            var record = (SSHFPResourceRecord)zone.Records.First();
+            var record = (SshfpResourceRecord)zone.Records.First();
             Assert.AreEqual("sil.example.com", record.Name);
             Assert.AreEqual("IN", record.Class);
             Assert.AreEqual(ResourceRecordType.SSHFP, record.Type);
@@ -39,7 +39,7 @@ sil.example.com. IN SSHFP 2 1 450c7d19d5da9a3a5b7c18992d1fbde15d8dad34";
         {
             var zone = new DnsZoneFile();
 
-            var record = new SSHFPResourceRecord
+            var record = new SshfpResourceRecord
             {
                 Name = "sil.example.com",
                 Class = "IN",
