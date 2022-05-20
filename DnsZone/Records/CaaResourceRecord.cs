@@ -1,5 +1,5 @@
 ﻿namespace DnsZone.Records {
-    public class CAAResourceRecord : ResourceRecord {
+    public class CaaResourceRecord : ResourceRecord {
         
         public ushort Flag { get; set; }
         

@@ -46,9 +46,13 @@ namespace DnsZone {
             return ToString(null);
         }
 
-        public string ToString(string origin) {
+        public string ToString(bool formatTimeInMilliseconds) {
+            return ToString(null, formatTimeInMilliseconds);
+        }
+
+        public string ToString(string origin, bool formatTimeInMilliseconds = false) {
             var sb = new StringBuilder();
-            var context = new DnsZoneFormatterContext(this, sb) {
+            var context = new DnsZoneFormatterContext(this, sb, formatTimeInMilliseconds) {
                 Origin = origin
             };
             if (!string.IsNullOrWhiteSpace(origin)) {
@@ -59,7 +63,7 @@ namespace DnsZone {
                 context.Sb.AppendLine($";{recordGroup.Key} records");
                 foreach (var record in recordGroup) {
                     context.WriteAndCompressDomainName(record.Name);
-                    context.WriteClass(record.Class);
+                    context.WriteValWithTab(record.Class);
                     context.WriteTimeSpan(record.Ttl);
                     context.WriteResourceRecordType(record.Type);
                     record.AcceptVistor(writer, context);
@@ -166,7 +170,7 @@ namespace DnsZone {
                 name = nameToken.StringValue;
             } else if (nameToken.Type == TokenType.Whitespace) {
                 var preview = context.Tokens.Peek();
-                if (preview.Type == TokenType.NewLine || preview.Type == TokenType.NewLine) {
+                if (preview.Type == TokenType.NewLine) {
                     context.Tokens.Dequeue();
                     return;
                 }
@@ -181,24 +185,22 @@ namespace DnsZone {
                 if (context.Tokens.Count == 0) {
                     if (string.IsNullOrWhiteSpace(name)) {
                         return;
-                    } else {
-                        throw new TokenException("missing record type", nameToken);
                     }
+
+                    throw new TokenException("missing record type", nameToken);
                 }
                 var token = context.Tokens.Peek();
                 if (token.Type == TokenType.Literal) {
-                    if (@class == null) {
-                        if (context.TryParseClass(out @class)) continue;
-                    }
-                    if (@ttl == null) {
-                        if (context.TryParseTtl(out ttl)) continue;
-                    }
+                    if (@class == null && context.TryParseClass(out @class)) continue;
+                    if (@ttl == null && context.TryParseTtl(out ttl)) continue;
                     break;
-                } else if (token.Type == TokenType.Comments || token.Type == TokenType.NewLine) {
-                    throw new TokenException("missing record type", token);
-                } else {
-                    throw new TokenException("unexpected token", token);
                 }
+
+                if (token.Type == TokenType.Comments || token.Type == TokenType.NewLine) {
+                    throw new TokenException("missing record type", token);
+                }
+
+                throw new TokenException("unexpected token", token);
             }
 
             var type = context.ReadResourceRecordType();

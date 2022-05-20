@@ -114,7 +114,7 @@ namespace DnsZone.Parser {
             return record;
         }
 
-        public ResourceRecord Visit(CAAResourceRecord record, DnsZoneParseContext context) {
+        public ResourceRecord Visit(CaaResourceRecord record, DnsZoneParseContext context) {
             record.Flag = context.ReadPreference();
             record.Tag = context.Tokens.Dequeue().StringValue;
             var sb = new StringBuilder();
@@ -133,7 +133,7 @@ namespace DnsZone.Parser {
             return record;
         }
 
-        public ResourceRecord Visit(TLSAResourceRecord record, DnsZoneParseContext context) {
+        public ResourceRecord Visit(TlsaResourceRecord record, DnsZoneParseContext context) {
             record.CertificateUsage = context.ReadPreference();
             record.Selector = context.ReadPreference();
             record.MatchingType = context.ReadPreference();
@@ -142,7 +142,7 @@ namespace DnsZone.Parser {
             return record;
         }
 
-        public ResourceRecord Visit(SSHFPResourceRecord record, DnsZoneParseContext context) {
+        public ResourceRecord Visit(SshfpResourceRecord record, DnsZoneParseContext context) {
             record.AlgorithmNumber = context.ReadPreference();
             record.FingerprintType = context.ReadPreference();
             record.Fingerprint = context.ReadString();

@@ -1,5 +1,5 @@
 ﻿namespace DnsZone.Records {
-    public class SSHFPResourceRecord : ResourceRecord {
+    public class SshfpResourceRecord : ResourceRecord {
         
         public ushort AlgorithmNumber { get; set; }
         

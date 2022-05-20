@@ -75,23 +75,16 @@ namespace DnsZone {
                 case ResourceRecordType.A: return new AResourceRecord();
                 case ResourceRecordType.AAAA: return new AaaaResourceRecord();
                 case ResourceRecordType.NS: return new NsResourceRecord();
-                //case ResourceRecordType.MD: return ResourceRecordType.MD;
-                //case ResourceRecordType.MF: return ResourceRecordType.MF;
                 case ResourceRecordType.CNAME: return new CNameResourceRecord();
                 case ResourceRecordType.SOA: return new SoaResourceRecord();
-                //case ResourceRecordType.MB: return ResourceRecordType.MB;
-                //case ResourceRecordType.MG: return ResourceRecordType.MG;
-                //case ResourceRecordType.MR: return ResourceRecordType.MR;
-                //case ResourceRecordType.NULL: return ResourceRecordType.NULL;
-                //case ResourceRecordType.WKS: return ResourceRecordType.WKS;
                 case ResourceRecordType.PTR: return new PtrResourceRecord();
                 case ResourceRecordType.SRV: return new SrvResourceRecord();
                 case ResourceRecordType.HINFO: return new HinfoResourceRecord();
                 case ResourceRecordType.MX: return new MxResourceRecord();
                 case ResourceRecordType.TXT: return new TxtResourceRecord();
-                case ResourceRecordType.CAA: return new CAAResourceRecord();
-                case ResourceRecordType.TLSA: return new TLSAResourceRecord();
-                case ResourceRecordType.SSHFP: return new SSHFPResourceRecord();
+                case ResourceRecordType.CAA: return new CaaResourceRecord();
+                case ResourceRecordType.TLSA: return new TlsaResourceRecord();
+                case ResourceRecordType.SSHFP: return new SshfpResourceRecord();
                 case ResourceRecordType.ALIAS: return new AliasResourceRecord();
                 case ResourceRecordType.DNAME: return new DnameResourceRecord();
                 case ResourceRecordType.DS: return new DsResourceRecord();
@@ -195,8 +188,18 @@ namespace DnsZone {
             return true;
         }
 
-        public static string FormatTimeSpan(TimeSpan val) {
+        public static string FormatTimeSpan(TimeSpan val, bool formatTimeInMilliseconds) {
             var sb = new StringBuilder();
+
+            if (formatTimeInMilliseconds)
+            {
+                var milliseconds = val.TotalMilliseconds;
+                if (milliseconds > 0) {
+                    sb.Append(sb.Length > 0 ? $"{milliseconds}s" : $"{milliseconds}");
+                }
+
+                return sb.ToString();
+            }
 
             var weeks = Math.Floor(val.TotalDays / 7);
             if (weeks > 0) {
@@ -229,7 +232,5 @@ namespace DnsZone {
 
             return sb.ToString();
         }
-
     }
-
 }
