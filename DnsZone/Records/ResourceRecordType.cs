@@ -31,5 +31,6 @@
         NSEC,
         NSEC3,
         NSEC3PARAM,
+        RRSIG,
     }
 }

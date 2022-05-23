@@ -48,5 +48,7 @@
         TResult Visit(Nsec3ResourceRecord record, TArg arg);
 
         TResult Visit(Nsec3ParamResourceRecord record, TArg arg);
+
+        TResult Visit(RrsigResourceRecord record, TArg arg);
     }
 }

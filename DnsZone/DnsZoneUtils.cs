@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using DnsZone.Records;
 
@@ -37,6 +38,7 @@ namespace DnsZone {
                 case "NSEC": return ResourceRecordType.NSEC;
                 case "NSEC3": return ResourceRecordType.NSEC3;
                 case "NSEC3PARAM": return ResourceRecordType.NSEC3PARAM;
+                case "RRSIG": return ResourceRecordType.RRSIG;
                 default:
                     throw new NotSupportedException($"unsupported resource record type {val}");
             }
@@ -74,6 +76,7 @@ namespace DnsZone {
                 case ResourceRecordType.NSEC: return "NSEC";
                 case ResourceRecordType.NSEC3: return "NSEC3";
                 case ResourceRecordType.NSEC3PARAM: return "NSEC3PARAM";
+                case ResourceRecordType.RRSIG: return "RRSIG";
                 default:
                     throw new NotSupportedException($"unsupported resource record type {val}");
             }
@@ -105,6 +108,7 @@ namespace DnsZone {
                 case ResourceRecordType.NSEC: return new NsecResourceRecord();
                 case ResourceRecordType.NSEC3: return new Nsec3ResourceRecord();
                 case ResourceRecordType.NSEC3PARAM: return new Nsec3ParamResourceRecord();
+                case ResourceRecordType.RRSIG: return new RrsigResourceRecord();
                 default:
                     throw new NotSupportedException($"unsupported resource record type {type}");
             }
@@ -165,6 +169,13 @@ namespace DnsZone {
                 res += TimeSpan.FromSeconds(part.Value);
             }
             return res;
+        }
+
+        public static DateTime ParseDateTime(string val)
+        {
+            var provider = CultureInfo.InvariantCulture;
+            var result = DateTime.ParseExact(val, "yyyyMMddHHmmss", provider);
+            return result;
         }
 
         public static bool TryParseTimeSpan(string val, out TimeSpan timestamp) {

@@ -58,6 +58,11 @@ namespace DnsZone.Formatter {
             Sb.Append(TAB_CHAR);
         }
 
+        public void WriteDateTime(DateTime val, string format) {
+            Sb.Append(val.ToString(format));
+            Sb.Append(TAB_CHAR);
+        }
+
         public void WriteString(string val) {
             val = val
                 .Replace("\\", "\\\\")

@@ -160,5 +160,18 @@ namespace DnsZone.Formatter {
             context.WriteValWithTab(record.Salt);
             return record;
         }
+        
+        public ResourceRecord Visit(RrsigResourceRecord record, DnsZoneFormatterContext context) {
+            context.WriteValWithTab(record.TypeCovered);
+            context.WritePreference(record.Algorithm);
+            context.WritePreference(record.NumberOfLabels);
+            context.WriteTimeSpan(record.OriginalTtl);
+            context.WriteDateTime(record.ExpirationTime, "yyyyMMddHHmmss");
+            context.WriteDateTime(record.InceptionTime, "yyyyMMddHHmmss");
+            context.WritePreference(record.KeyTag);
+            context.WriteValWithTab(record.SignatureName);
+            context.WriteValWithTab(record.Signature);
+            return record;
+        }
     }
 }

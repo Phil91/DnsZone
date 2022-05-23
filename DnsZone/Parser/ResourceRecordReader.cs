@@ -192,5 +192,18 @@ namespace DnsZone.Parser {
             record.Salt = context.ReadString();
             return record;
         }
+        
+        public ResourceRecord Visit(RrsigResourceRecord record, DnsZoneParseContext context) {
+            record.TypeCovered = context.ReadString();
+            record.Algorithm = context.ReadPreference();
+            record.NumberOfLabels = context.ReadPreference();
+            record.OriginalTtl = context.ReadTimeSpan();
+            record.ExpirationTime = context.ReadDateTime();
+            record.InceptionTime = context.ReadDateTime();
+            record.KeyTag = context.ReadNumber();
+            record.SignatureName = context.ReadDomainName();
+            record.Signature = context.ReadString();
+            return record;
+        }
     }
 }

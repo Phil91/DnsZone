@@ -55,6 +55,12 @@ namespace DnsZone.Parser {
             return ushort.Parse(token.StringValue);
         }
 
+        public uint ReadNumber() {
+            var token = Tokens.Dequeue();
+            if (token.Type != TokenType.Literal) throw new TokenException("preference expected", token);
+            return uint.Parse(token.StringValue);
+        }
+
         public string ReadDomainName() {
             var token = Tokens.Dequeue();
             if (token.Type != TokenType.Literal) throw new TokenException("domain name expected", token);
@@ -100,6 +106,11 @@ namespace DnsZone.Parser {
         public TimeSpan ReadTimeSpan() {
             var val = Tokens.Dequeue().StringValue;
             return DnsZoneUtils.ParseTimeSpan(val);
+        }
+
+        public DateTime ReadDateTime() {
+            var val = Tokens.Dequeue().StringValue;
+            return DnsZoneUtils.ParseDateTime(val);
         }
 
         public ResourceRecordType ReadResourceRecordType() {
