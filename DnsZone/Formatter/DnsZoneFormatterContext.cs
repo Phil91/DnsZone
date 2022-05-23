@@ -5,7 +5,7 @@ using DnsZone.Records;
 
 namespace DnsZone.Formatter {
     public class DnsZoneFormatterContext {
-        private readonly bool _formatTimeInMilliseconds;
+        private readonly bool _formatTimeInSeconds;
 
         private const string TAB_CHAR = "\t";
 
@@ -23,8 +23,8 @@ namespace DnsZone.Formatter {
 
         public StringBuilder Sb { get; }
 
-        public DnsZoneFormatterContext(DnsZoneFile zone, StringBuilder sb, bool formatTimeInMilliseconds) {
-            _formatTimeInMilliseconds = formatTimeInMilliseconds;
+        public DnsZoneFormatterContext(DnsZoneFile zone, StringBuilder sb, bool formatTimeInSeconds) {
+            _formatTimeInSeconds = formatTimeInSeconds;
             Sb = sb;
             Zone = zone;
         }
@@ -54,7 +54,7 @@ namespace DnsZone.Formatter {
         }
 
         public void WriteTimeSpan(TimeSpan val) {
-            Sb.Append(DnsZoneUtils.FormatTimeSpan(val, _formatTimeInMilliseconds));
+            Sb.Append(DnsZoneUtils.FormatTimeSpan(val, _formatTimeInSeconds));
             Sb.Append(TAB_CHAR);
         }
 

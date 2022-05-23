@@ -50,9 +50,9 @@ namespace DnsZone {
             return ToString(null, formatTimeInMilliseconds);
         }
 
-        public string ToString(string origin, bool formatTimeInMilliseconds = false) {
+        public string ToString(string origin, bool formatTimeInSeconds = false) {
             var sb = new StringBuilder();
-            var context = new DnsZoneFormatterContext(this, sb, formatTimeInMilliseconds) {
+            var context = new DnsZoneFormatterContext(this, sb, formatTimeInSeconds) {
                 Origin = origin
             };
             if (!string.IsNullOrWhiteSpace(origin)) {

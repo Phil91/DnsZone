@@ -214,16 +214,12 @@ namespace DnsZone {
             return true;
         }
 
-        public static string FormatTimeSpan(TimeSpan val, bool formatTimeInMilliseconds) {
+        public static string FormatTimeSpan(TimeSpan val, bool formatTimeInSeconds) {
             var sb = new StringBuilder();
 
-            if (formatTimeInMilliseconds)
+            if (formatTimeInSeconds)
             {
-                var milliseconds = val.TotalMilliseconds;
-                if (milliseconds > 0) {
-                    sb.Append(sb.Length > 0 ? $"{milliseconds}s" : $"{milliseconds}");
-                }
-
+                sb.Append(val.TotalSeconds);
                 return sb.ToString();
             }
 
